@@ -6,14 +6,9 @@ import com.sparta.sparta_goods_shop.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static com.sparta.sparta_goods_shop.constants.user.Messages.PLEASE_LOGIN;
-import static com.sparta.sparta_goods_shop.constants.user.Messages.WRONG_INPUT_FORMAT;
 
 @RestController
 @RequiredArgsConstructor

@@ -20,11 +20,14 @@ public class GoodsResponseDto {
 
     private Category category;
 
+    private String file;
+
     public GoodsResponseDto(Goods goods) {
         this.name = goods.getName();
         this.price = goods.getPrice();
         this.quantity = goods.getQuantity();
         this.description = goods.getDescription();
         this.category = goods.getCategory();
+        this.file = goods.getFile();
     }
 }

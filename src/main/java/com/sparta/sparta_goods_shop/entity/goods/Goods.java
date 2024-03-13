@@ -32,6 +32,10 @@ public class Goods {
     @Column(nullable = false)
     private Category category;
 
+    @Column
+    private String file;
+
+
     @OneToMany(mappedBy = "goods", cascade = CascadeType.REMOVE)
     private List<Cart> cartList;
 
@@ -41,5 +45,9 @@ public class Goods {
         this.quantity = requestDto.getQuantity();
         this.description = requestDto.getDescription();
         this.category = requestDto.getCategory();
+    }
+
+    public void uploadImage(String fileUrl) {
+        this.file = fileUrl;
     }
 }

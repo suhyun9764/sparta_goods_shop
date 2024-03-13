@@ -1,13 +1,16 @@
 package com.sparta.sparta_goods_shop.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.sparta.sparta_goods_shop.dto.goods.GoodsRequestDto;
 import com.sparta.sparta_goods_shop.dto.goods.GoodsResponseDto;
 import com.sparta.sparta_goods_shop.service.goods.GoodsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,9 +38,15 @@ public class GoodsController {
         return ResponseEntity.ok(goodsList);
     }
 
-    @GetMapping("/{goodsId}")
+    @GetMapping("/{goodsId}")   //선택 상품 조회
     public ResponseEntity<GoodsResponseDto> findById(@PathVariable Long goodsId) {
         return ResponseEntity.ok(goodsService.findById(goodsId));
+    }
+
+    @PostMapping("/{goodsId}/image")   //선택 상품 조회
+    public ResponseEntity<GoodsResponseDto> uploadImage(@PathVariable Long goodsId,
+                                                        @RequestParam("file")MultipartFile file) {
+        return ResponseEntity.ok(goodsService.uploadImage(goodsId,file));
     }
 
 }

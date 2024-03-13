@@ -2,6 +2,7 @@ package com.sparta.sparta_goods_shop.service.goods;
 
 import com.sparta.sparta_goods_shop.dto.goods.GoodsRequestDto;
 import com.sparta.sparta_goods_shop.dto.goods.GoodsResponseDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface GoodsService {
 
     //선택한 상품 조회
     GoodsResponseDto findById(Long goodsId);
+
+    GoodsResponseDto uploadImage(Long goodsId, MultipartFile file);
 }
