@@ -7,10 +7,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.awt.print.Pageable;
+import java.util.List;
 
 import static com.sparta.sparta_goods_shop.entity.User.enums.RoleEnum.Authority.ADMIN;
 
@@ -25,6 +25,15 @@ public class GoodsController {
     public ResponseEntity<GoodsResponseDto> save(@Valid @RequestBody GoodsRequestDto requestDto) {
         GoodsResponseDto goodsResponseDto = goodsService.save(requestDto);
         return ResponseEntity.ok(goodsResponseDto);
+    }
+
+    @GetMapping    // 상품 목록 조회
+    public ResponseEntity<List<GoodsResponseDto>> findAll(@RequestParam(required = false) String sortBy,
+                                                          @RequestParam(required = false) boolean isAsc,
+                                                          @RequestParam("page") int page,
+                                                          @RequestParam("size") int size) {
+        List<GoodsResponseDto> goodsList = goodsService.findAll(sortBy,isAsc,page-1,size);
+        return ResponseEntity.ok(goodsList);
     }
 
 }
