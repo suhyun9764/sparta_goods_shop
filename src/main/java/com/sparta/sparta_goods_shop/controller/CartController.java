@@ -25,10 +25,16 @@ public class CartController {
     @PostMapping("/{goodsId}")
     public ResponseEntity<List<CartResponseDto>> addToCart(@PathVariable Long goodsId, @RequestParam Long quantity,
                                                            @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("come" + "+" + goodsId);
-        System.out.println(userDetails.getUser().getEmail());
         List<CartResponseDto> goodsList = cartService.addToCart(goodsId, quantity, userDetails.getUser());
         return ResponseEntity.ok(goodsList);
+    }
+
+    @PutMapping("/{goodsId}")
+    public ResponseEntity<CartResponseDto> update(@PathVariable Long goodsId, @RequestParam Long updateQuantity,
+                                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        CartResponseDto cartResponseDto = cartService.updateQuantity(goodsId, updateQuantity, userDetails.getUser());
+        return ResponseEntity.ok(cartResponseDto);
     }
 
 

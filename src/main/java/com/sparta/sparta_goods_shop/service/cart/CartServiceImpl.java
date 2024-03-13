@@ -9,7 +9,6 @@ import com.sparta.sparta_goods_shop.repository.CartRepository;
 import com.sparta.sparta_goods_shop.repository.GoodsRepository;
 import com.sparta.sparta_goods_shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.sparta.sparta_goods_shop.constants.cart.Messages.CANT_OVER_MAX_QUANTITY;
+import static com.sparta.sparta_goods_shop.constants.cart.Messages.NOT_IN_CART;
 import static com.sparta.sparta_goods_shop.constants.goods.Messages.NOT_FOUND_GOODS;
 import static com.sparta.sparta_goods_shop.constants.user.Messages.NOT_FOUND_USER;
 
@@ -49,15 +49,28 @@ public class CartServiceImpl implements CartService {
     @Override   //장바구니 전체 조회
     public List<CartResponseDto> findAll(User user) {
         List<CartResponseDto> cartList = new ArrayList<>();
-        makeCartList(getUser(user),cartList);
+        makeCartList(getUser(user), cartList);
         return cartList;
+    }
+
+    @Override   //선택한 제품 수량 수정
+    @Transactional
+    public CartResponseDto updateQuantity(Long goodsId, Long updateQuantity, User user) {
+        checkQuantity(updateQuantity);
+        Goods findGoods = getGoods(goodsId);
+        User findUser = getUser(user);
+        Cart cart = cartRepository.findByUserAndGoods(findUser, findGoods).orElseThrow(() ->
+                new NullPointerException(NOT_IN_CART));
+        cart.updateQuantity(updateQuantity);
+        return new CartResponseDto(new GoodsResponseDto(cart.getGoods()), cart.getQuantity());
     }
 
     private void addGoodsToCart(Long quantity, User user, Optional<Cart> findCart, Goods goods) {
         if (findCart.isPresent()) {   // 이미 담은 제품인 경우
             Cart cart = findCart.get();
-            checkQuantity(cart.getQuantity() + quantity);
-            cart.addQuantity(quantity);
+            Long totalQuantity = cart.getQuantity() + quantity;
+            checkQuantity(totalQuantity);
+            cart.updateQuantity(totalQuantity);
         } else {  // 처음 등록하는 제품인 경우
             cartRepository.save(new Cart(goods, quantity, user));
         }

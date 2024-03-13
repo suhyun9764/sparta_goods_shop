@@ -31,8 +31,8 @@ public class Cart {
         this.user = user;
     }
 
-    public void addQuantity(Long quantity) {
-        System.out.println(this.quantity);
-        this.quantity += quantity;
+    public void updateQuantity(Long quantity) {
+        this.quantity = quantity;
     }
+
 }
