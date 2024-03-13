@@ -14,4 +14,7 @@ public interface CartService {
 
     //선택한 상품의 수량 수정
     CartResponseDto updateQuantity(Long goodsId, Long updateQuantity, User user);
+
+    //선택한 상품 장바구니에서 삭제
+    String delete(Long goodsId, User user);
 }

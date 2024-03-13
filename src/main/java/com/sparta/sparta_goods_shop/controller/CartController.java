@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.sparta.sparta_goods_shop.constants.cart.Messages.DELETE_COMPLETE;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/cart")
@@ -35,6 +37,14 @@ public class CartController {
 
         CartResponseDto cartResponseDto = cartService.updateQuantity(goodsId, updateQuantity, userDetails.getUser());
         return ResponseEntity.ok(cartResponseDto);
+    }
+
+    @DeleteMapping("/{goodsId}")
+    public ResponseEntity<String> delete(@PathVariable Long goodsId,
+                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        String goodsName = cartService.delete(goodsId, userDetails.getUser());
+        return ResponseEntity.ok(String.format(DELETE_COMPLETE, goodsName));
     }
 
 

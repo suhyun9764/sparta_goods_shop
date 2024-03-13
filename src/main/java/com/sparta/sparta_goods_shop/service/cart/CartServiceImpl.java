@@ -65,6 +65,18 @@ public class CartServiceImpl implements CartService {
         return new CartResponseDto(new GoodsResponseDto(cart.getGoods()), cart.getQuantity());
     }
 
+    @Override
+    @Transactional
+    public String delete(Long goodsId, User user) {
+        Goods findGoods = getGoods(goodsId);
+        User findUser = getUser(user);
+        Cart cart = cartRepository.findByUserAndGoods(findUser, findGoods).orElseThrow(() ->
+                new NullPointerException(NOT_IN_CART));
+        String deleteGoodsName = cart.getGoods().getName();
+        cartRepository.delete(cart);
+        return deleteGoodsName;
+    }
+
     private void addGoodsToCart(Long quantity, User user, Optional<Cart> findCart, Goods goods) {
         if (findCart.isPresent()) {   // 이미 담은 제품인 경우
             Cart cart = findCart.get();
