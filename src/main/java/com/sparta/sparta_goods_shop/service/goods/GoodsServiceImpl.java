@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import static com.sparta.sparta_goods_shop.constants.goods.Messages.INVALID_SORT_VALUE;
 import static com.sparta.sparta_goods_shop.constants.goods.Messages.NOT_FOUND_GOODS;
@@ -59,15 +60,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     public GoodsResponseDto uploadImage(Long goodsId, MultipartFile file) {
         try {
-            String fileName = file.getOriginalFilename();
-            String fileUrl = "https://" + bucket + "/test" + fileName;
-            ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentType(file.getContentType());
-            metadata.setContentLength(file.getSize());
-            amazonS3Client.putObject(bucket, fileName, file.getInputStream(), metadata);
-            Goods goods = getGoods(goodsId);
-            goods.uploadImage(fileUrl);
-            return new GoodsResponseDto(goods);
+            return saveImage(goodsId, file);
         } catch (IOException e) {
             throw new IllegalArgumentException("잘못된 이미지입니다");
         }
@@ -88,6 +81,28 @@ public class GoodsServiceImpl implements GoodsService {
         Goods goods = goodsRepository.findById(goodsId).orElseThrow(() ->
                 new NullPointerException(NOT_FOUND_GOODS));
         return goods;
+    }
+
+    private GoodsResponseDto saveImage(Long goodsId, MultipartFile file) throws IOException {
+        String fileName = generateUUIDFileName(file);
+        String fileUrl = "https://" + bucket + "/test" + fileName;
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(file.getContentType());
+        metadata.setContentLength(file.getSize());
+        amazonS3Client.putObject(bucket, fileName, file.getInputStream(), metadata);
+        Goods goods = getGoods(goodsId);
+        goods.uploadImage(fileUrl);
+        return new GoodsResponseDto(goods);
+    }
+
+
+    private String generateUUIDFileName(MultipartFile file) {
+        String originalFileName = file.getOriginalFilename();
+        String extension = "";
+        if (originalFileName != null && originalFileName.contains(".")) {
+            extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        }
+        return UUID.randomUUID().toString() + extension;
     }
 
 }

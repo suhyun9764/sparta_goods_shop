@@ -43,7 +43,7 @@ public class GoodsController {
         return ResponseEntity.ok(goodsService.findById(goodsId));
     }
 
-    @PostMapping("/{goodsId}/image")   //선택 상품 조회
+    @PostMapping("/{goodsId}/image")   //이미지 업로드
     public ResponseEntity<GoodsResponseDto> uploadImage(@PathVariable Long goodsId,
                                                         @RequestParam("file")MultipartFile file) {
         return ResponseEntity.ok(goodsService.uploadImage(goodsId,file));
