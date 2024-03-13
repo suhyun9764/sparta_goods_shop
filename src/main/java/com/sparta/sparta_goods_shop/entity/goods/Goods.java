@@ -1,9 +1,12 @@
 package com.sparta.sparta_goods_shop.entity.goods;
 
 import com.sparta.sparta_goods_shop.dto.GoodsRequestDto;
+import com.sparta.sparta_goods_shop.entity.cart.Cart;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "goods")
@@ -28,6 +31,9 @@ public class Goods {
 
     @Column(nullable = false)
     private Category category;
+
+    @OneToMany(mappedBy = "goods", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList;
 
     public Goods(GoodsRequestDto requestDto) {
         this.name = requestDto.getName();

@@ -3,9 +3,12 @@ package com.sparta.sparta_goods_shop.entity.User;
 import com.sparta.sparta_goods_shop.dto.user.request.SignUpRequestDto;
 import com.sparta.sparta_goods_shop.entity.User.enums.GenderEnum;
 import com.sparta.sparta_goods_shop.entity.User.enums.RoleEnum;
+import com.sparta.sparta_goods_shop.entity.cart.Cart;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -30,6 +33,8 @@ public class User {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private RoleEnum roleEnum;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList;
 
     public User(SignUpRequestDto signUpRequestDto) {
         this.password = signUpRequestDto.getPassword();

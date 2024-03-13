@@ -9,5 +9,6 @@ public class Messages {
     public static final String LOGIN_FAIL = "로그인에 실패하였습니다. 아이디나 비밀번호를 확인해주세요";
     public static final String PLEASE_LOGIN = "로그인 해주세요";
     public static final String WRONG_GENDER_INPUT = "성별 : MALE, FEMALE 둘 중 하나를 입력해주세요";
+    public static final String NOT_FOUND_USER = "회원을 찾을 수 없습니다";
 
 }
