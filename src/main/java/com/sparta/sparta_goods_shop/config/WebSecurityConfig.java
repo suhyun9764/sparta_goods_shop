@@ -77,6 +77,7 @@ public class WebSecurityConfig {
                         // "접근 불가" 페이지 URL 설정
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             response.setContentType("text/plain");
+                            response.setStatus(403);
                             response.setCharacterEncoding("UTF-8");
                             response.getWriter().write("권한이 없습니다");
                         })
