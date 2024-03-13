@@ -1,5 +1,6 @@
-package com.sparta.sparta_goods_shop.dto;
+package com.sparta.sparta_goods_shop.dto.cart;
 
+import com.sparta.sparta_goods_shop.dto.goods.GoodsResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

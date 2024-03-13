@@ -1,4 +1,4 @@
-package com.sparta.sparta_goods_shop.dto;
+package com.sparta.sparta_goods_shop.dto.goods;
 
 import com.sparta.sparta_goods_shop.entity.goods.Category;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
-package com.sparta.sparta_goods_shop.service;
+package com.sparta.sparta_goods_shop.service.goods;
 
-import com.sparta.sparta_goods_shop.dto.GoodsRequestDto;
-import com.sparta.sparta_goods_shop.dto.GoodsResponseDto;
+import com.sparta.sparta_goods_shop.dto.goods.GoodsRequestDto;
+import com.sparta.sparta_goods_shop.dto.goods.GoodsResponseDto;
 import com.sparta.sparta_goods_shop.entity.goods.Goods;
 import com.sparta.sparta_goods_shop.repository.GoodsRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.sparta.sparta_goods_shop.entity.goods;
 
-import com.sparta.sparta_goods_shop.dto.GoodsRequestDto;
+import com.sparta.sparta_goods_shop.dto.goods.GoodsRequestDto;
 import com.sparta.sparta_goods_shop.entity.cart.Cart;
 import jakarta.persistence.*;
 import lombok.Getter;

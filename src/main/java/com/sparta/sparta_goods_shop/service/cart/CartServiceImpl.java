@@ -1,7 +1,7 @@
-package com.sparta.sparta_goods_shop.service;
+package com.sparta.sparta_goods_shop.service.cart;
 
-import com.sparta.sparta_goods_shop.dto.CartResponseDto;
-import com.sparta.sparta_goods_shop.dto.GoodsResponseDto;
+import com.sparta.sparta_goods_shop.dto.cart.CartResponseDto;
+import com.sparta.sparta_goods_shop.dto.goods.GoodsResponseDto;
 import com.sparta.sparta_goods_shop.entity.User.User;
 import com.sparta.sparta_goods_shop.entity.cart.Cart;
 import com.sparta.sparta_goods_shop.entity.goods.Goods;

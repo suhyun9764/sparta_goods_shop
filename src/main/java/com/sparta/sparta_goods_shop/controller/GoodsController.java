@@ -1,8 +1,8 @@
 package com.sparta.sparta_goods_shop.controller;
 
-import com.sparta.sparta_goods_shop.dto.GoodsRequestDto;
-import com.sparta.sparta_goods_shop.dto.GoodsResponseDto;
-import com.sparta.sparta_goods_shop.service.GoodsService;
+import com.sparta.sparta_goods_shop.dto.goods.GoodsRequestDto;
+import com.sparta.sparta_goods_shop.dto.goods.GoodsResponseDto;
+import com.sparta.sparta_goods_shop.service.goods.GoodsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
 package com.sparta.sparta_goods_shop.controller;
 
-import com.sparta.sparta_goods_shop.dto.CartResponseDto;
+import com.sparta.sparta_goods_shop.dto.cart.CartResponseDto;
 import com.sparta.sparta_goods_shop.security.UserDetailsImpl;
-import com.sparta.sparta_goods_shop.service.CartService;
+import com.sparta.sparta_goods_shop.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
