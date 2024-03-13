@@ -9,6 +9,7 @@ import com.sparta.sparta_goods_shop.repository.CartRepository;
 import com.sparta.sparta_goods_shop.repository.GoodsRepository;
 import com.sparta.sparta_goods_shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,13 @@ public class CartServiceImpl implements CartService {
 
         return cartList;
 
+    }
+
+    @Override   //장바구니 전체 조회
+    public List<CartResponseDto> findAll(User user) {
+        List<CartResponseDto> cartList = new ArrayList<>();
+        makeCartList(getUser(user),cartList);
+        return cartList;
     }
 
     private void addGoodsToCart(Long quantity, User user, Optional<Cart> findCart, Goods goods) {

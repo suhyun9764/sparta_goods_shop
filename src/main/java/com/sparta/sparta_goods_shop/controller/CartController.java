@@ -17,10 +17,9 @@ public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/{goodsId}")
-    public String test(@PathVariable Long goodsId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("come" + userDetails.getUser().getEmail());
-        return "Ok" + goodsId;
+    @GetMapping
+    public ResponseEntity<List<CartResponseDto>> findAll(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return ResponseEntity.ok(cartService.findAll(userDetails.getUser()));
     }
 
     @PostMapping("/{goodsId}")
