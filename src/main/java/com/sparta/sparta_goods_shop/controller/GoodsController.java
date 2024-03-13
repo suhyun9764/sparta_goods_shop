@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import static com.sparta.sparta_goods_shop.entity.User.enums.RoleEnum.Authority.ADMIN;
@@ -32,8 +31,13 @@ public class GoodsController {
                                                           @RequestParam(required = false) boolean isAsc,
                                                           @RequestParam("page") int page,
                                                           @RequestParam("size") int size) {
-        List<GoodsResponseDto> goodsList = goodsService.findAll(sortBy,isAsc,page-1,size);
+        List<GoodsResponseDto> goodsList = goodsService.findAll(sortBy, isAsc, page - 1, size);
         return ResponseEntity.ok(goodsList);
+    }
+
+    @GetMapping("/{goodsId}")
+    public ResponseEntity<GoodsResponseDto> findById(@PathVariable Long goodsId) {
+        return ResponseEntity.ok(goodsService.findById(goodsId));
     }
 
 }

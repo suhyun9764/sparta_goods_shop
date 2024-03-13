@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.sparta.sparta_goods_shop.constants.goods.Messages.INVALID_SORT_VALUE;
+import static com.sparta.sparta_goods_shop.constants.goods.Messages.NOT_FOUND_GOODS;
 
 @Service
 @RequiredArgsConstructor
@@ -28,13 +29,21 @@ public class GoodsServiceImpl implements GoodsService {
     @Override   // 전체 상품 조회
     public List<GoodsResponseDto> findAll(String sortBy, boolean isAsc, int page, int size) {
         // 정렬 값 체크
-        if(!isValidSortBy(sortBy)){
+        if (!isValidSortBy(sortBy)) {
             throw new IllegalArgumentException(INVALID_SORT_VALUE);
         }
         // 페이징 설정
         Pageable pageable = getPageable(sortBy, isAsc, page, size);
 
         return goodsRepository.findAll(pageable).stream().map(GoodsResponseDto::new).toList();
+    }
+
+    @Override   //선택한 상품 조회
+    public GoodsResponseDto findById(Long goodsId) {
+        Goods goods = goodsRepository.findById(goodsId).orElseThrow(() ->
+                new NullPointerException(NOT_FOUND_GOODS));
+
+        return new GoodsResponseDto(goods);
     }
 
     private boolean isValidSortBy(String sortBy) {
@@ -44,7 +53,7 @@ public class GoodsServiceImpl implements GoodsService {
     private static Pageable getPageable(String sortBy, boolean isAsc, int page, int size) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size,sort);
+        Pageable pageable = PageRequest.of(page, size, sort);
         return pageable;
     }
 
